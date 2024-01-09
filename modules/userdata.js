@@ -11,16 +11,22 @@ userdata.once('open', () => {console.log('Connected : "/userdata"')});
 var user = mongoose.Schema({
 	username: {type: String, unique: true},
 	password: String,
-	email: {type: String, unique: true}
+	email: {type: String, unique: true},
+	phone: {type: String, unique: true},
+	birthday: Date,
+	gender: Boolean
 });
 
 var User = mongoose.model('Schema', user);
 
-exports.createUser = (username, password, email) => {
+exports.createUser = (username, password, email, phone, birthday, gender) => {
 	return new User({
 		username: username,
 		password: password,
-		email: email
+		email: email,
+		phone: phone,
+		birthday: birthday,
+		gender: gender
 	})
 	.save()
 	.then(result => result)
