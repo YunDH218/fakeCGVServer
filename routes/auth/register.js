@@ -8,11 +8,12 @@ router.post('/', async function(req, res, next) {
 	
 	const result = await userdata.createUser(username, password, email, phone, birthday, gender);
 	
-	// TODO: 유일성을 해치는 인자가 무엇인지 result에 드러나도록 반환하게 할 것
-	// if (result instanceof Error) return res.status(401).send('The username or email is already exists.');
-	if (result instanceof Error) return res.status(401).send(result);
+	if (result instanceof Error) {
+		const keyPattern = Object.keys(result?.keyPattern)[0];
+		const keyValue = Object.values(result?.keyValue)[0];
+		return res.status(401).send(`The ${keyPattern} "${keyValue}" is already exists`);
+	}
 	return res.status(200).send('Account successfully created.');
-	
 });
 
 module.exports = router;

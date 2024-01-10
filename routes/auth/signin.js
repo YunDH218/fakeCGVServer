@@ -32,7 +32,7 @@ router.post('/', async function(req, res, next) {
 	
 	res.cookie('accessToken', generateAccessToken(user));
 	res.cookie('refreshToken', generateRefreshToken(user));
-	return res.redirect('/');
+	return res.status(200).send('login success');
 });
 
 module.exports = router;
