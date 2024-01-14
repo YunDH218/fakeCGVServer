@@ -9,8 +9,8 @@ var cors = require('cors');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var signInRouter = require('./routes/auth/signin');
-var signOutRouter = require('./routes/auth/signout');
 var registerRouter = require('./routes/auth/register');
+var verifyTokenRouter = require('./routes/auth/verify-jwt');
 
 var app = express();
 
@@ -28,8 +28,8 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/auth/signin', signInRouter);
-app.use('/auth/signout', signOutRouter);
 app.use('/auth/register', registerRouter);
+app.use('/auth/verifytoken', verifyTokenRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

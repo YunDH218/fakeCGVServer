@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var userdata = require('../../modules/userdata.js')
+var userdata = require('../../util/userdata.js')
 
 router.post('/', async function(req, res, next) {
 	const { username, password, email, phone, birthday, gender } = req.body;

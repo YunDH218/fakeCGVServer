@@ -2,13 +2,13 @@ const express = require('express');
 const jwt = require('jsonwebtoken');
 const router = express.Router();
 
-const userdata = require('../../modules/userdata.js');
+const userdata = require('../../util/userdata.js');
 
 // generate access token based on secret key
 const generateAccessToken = user => jwt.sign(
 	{ username: user.username },
 	process.env.ACCESS_TOKEN_SECRET,
-	{ expiresIn: "15m" }
+	{ expiresIn: "1h" }
 );
 
 // generate refersh token based on secret key
@@ -23,16 +23,17 @@ router.post('/', async function(req, res, next) {
 	const user = await userdata.findUserByUsername(username);
 	
 	// invalid user
-	if (!user) return res.status(401).send({ error: 'please check your ID.' });
+	if (!user) return res.status(401).send('please check your ID.');
 	
 	// invalid password
-	if (user.password !== password) return res.status(401).send({ error: 'please check your password.' })
+	if (user.password !== password) return res.status(401).send('please check your password.')
 	
-	console.log('login success');
+	console.log(username + 'logined');
 	
-	res.cookie('accessToken', generateAccessToken(user));
-	res.cookie('refreshToken', generateRefreshToken(user));
-	return res.status(200).send('login success');
+	return res.status(200).send({
+		'accessToken': generateAccessToken(user),
+		'refreshToken': generateRefreshToken(user)
+	});
 });
 
 module.exports = router;
