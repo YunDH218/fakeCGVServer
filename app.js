@@ -1,18 +1,17 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
-var dotenv = require("dotenv").config();
-var cors = require('cors');
+const createError = require('http-errors');
+const express = require('express');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const dotenv = require("dotenv").config();
+const cors = require('cors');
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
-var signInRouter = require('./routes/auth/signin');
-var registerRouter = require('./routes/auth/register');
-var verifyTokenRouter = require('./routes/auth/verify-jwt');
+const indexRouter = require('./routes/index');
+const signInRouter = require('./routes/auth/signin');
+const registerRouter = require('./routes/auth/register');
+const verifyTokenRouter = require('./routes/auth/verify-jwt');
 
-var app = express();
+const app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -26,7 +25,6 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
 app.use('/auth/signin', signInRouter);
 app.use('/auth/register', registerRouter);
 app.use('/auth/verifytoken', verifyTokenRouter);

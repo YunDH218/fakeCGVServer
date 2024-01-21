@@ -20,7 +20,6 @@ var user = mongoose.Schema({
 var User = mongoose.model('Schema', user);
 
 exports.createUser = (username, password, email, phone, birthday, gender) => {
-	console.log(phone);
 	return new User({
 		username: username,
 		password: password,
